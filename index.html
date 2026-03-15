@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Real Interview Experience</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     
     <script>
         tailwind.config = {
@@ -16,36 +16,35 @@
                         mono: ['JetBrains Mono', 'monospace'],
                     },
                     colors: {
-                        // Naya professional dark palette
-                        midnight: {
-                            base: '#09090b',
-                            panel: '#18181b',
-                            lighter: '#27272a',
+                        studio: {
+                            bg: '#000000',
+                            panel: '#0a0a0a',
+                            card: '#111111',
+                            border: '#1f1f1f'
                         },
-                        glass: {
-                            100: 'rgba(24, 24, 27, 0.4)',
-                            200: 'rgba(24, 24, 27, 0.65)',
-                        },
+                        brand: {
+                            primary: '#3b82f6',
+                            accent: '#8b5cf6',
+                            success: '#10b981'
+                        }
                     },
                     animation: {
-                        'blob': 'blob 10s infinite',
-                        'fade-in-up': 'fadeInUp 0.5s ease-out forwards',
-                        'pop': 'pop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards',
+                        'fade-in': 'fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+                        'slide-up': 'slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+                        'glow-pulse': 'glowPulse 3s infinite alternate',
                     },
                     keyframes: {
-                        blob: {
-                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
-                            '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
-                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
-                            '100%': { transform: 'translate(0px, 0px) scale(1)' },
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
                         },
-                        fadeInUp: {
-                            '0%': { opacity: '0', transform: 'translateY(10px)' },
+                        slideUp: {
+                            '0%': { opacity: '0', transform: 'translateY(15px)' },
                             '100%': { opacity: '1', transform: 'translateY(0)' },
                         },
-                        pop: {
-                            '0%': { transform: 'scale(0.9)', opacity: '0' },
-                            '100%': { transform: 'scale(1)', opacity: '1' },
+                        glowPulse: {
+                            '0%': { opacity: '0.3', transform: 'scale(1)' },
+                            '100%': { opacity: '0.6', transform: 'scale(1.05)' },
                         }
                     }
                 }
@@ -54,427 +53,572 @@
     </script>
 
     <style>
-        /* Professional Dark Scrollbar */
-        ::-webkit-scrollbar {
-            width: 6px;
-        }
-        ::-webkit-scrollbar-track {
-            background: transparent;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: rgba(255, 255, 255, 0.2);
-        }
+        /* Premium Scrollbar */
+        ::-webkit-scrollbar { width: 4px; height: 4px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #555; }
 
-        /* Sleek Dark Glassmorphism */
-        .glass-panel {
-            background: rgba(24, 24, 27, 0.4);
+        /* Code Highlighting Core Classes */
+        .code-keyword { color: #ff7b72; font-weight: 500; }
+        .code-function { color: #d2a8ff; font-weight: 500; }
+        .code-string { color: #a5d6ff; }
+        .code-number { color: #79c0ff; }
+        .code-comment { color: #8b949e; font-style: italic; }
+        .code-operator { color: #c9d1d9; }
+        .code-class { color: #f0883e; }
+
+        /* Smooth Glass UI */
+        .glass-box {
+            background: rgba(10, 10, 10, 0.7);
             backdrop-filter: blur(24px);
             -webkit-backdrop-filter: blur(24px);
             border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+            box-shadow: 0 20px 40px -20px rgba(0,0,0,0.8);
         }
 
-        .code-syntax-keyword { color: #ff79c6; font-weight: bold; }
-        .code-syntax-string { color: #f1fa8c; }
-        .code-syntax-comment { color: #6272a4; font-style: italic; }
-        .code-syntax-def { color: #50fa7b; }
-        .code-syntax-number { color: #bd93f9; }
-
-        /* Subtle Cyber Glow Utility */
-        .glow-border {
-            position: relative;
-        }
-        .glow-border::after {
-            content: '';
-            position: absolute;
-            top: -1px; left: -1px; right: -1px; bottom: -1px;
-            border-radius: inherit;
-            background: linear-gradient(45deg, #3B82F6, #6366f1, #8B5CF6);
-            opacity: 0;
-            z-index: -1;
-            transition: opacity 0.4s ease;
-        }
-        .glow-border:focus-within::after, .glow-border:hover::after {
-            opacity: 0.6;
-            filter: blur(10px);
+        /* Question Typography Glow */
+        .question-glow {
+            text-shadow: 0 4px 24px rgba(255, 255, 255, 0.15);
         }
 
-        /* Winner Overlay Animations */
-        .winner-bg {
+        /* Winner Overlay Effects */
+        .winner-backdrop {
             background: radial-gradient(circle at center, #1e1b4b 0%, #000000 100%);
         }
-        .text-glow {
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5), 0 0 20px rgba(255, 255, 255, 0.3), 0 0 40px var(--glow-color);
+        .text-glow-fx {
+            text-shadow: 0 0 20px var(--glow-color), 0 0 40px var(--glow-color), 0 0 80px var(--glow-color);
         }
-        .confetti {
-            position: absolute;
-            width: 8px;
-            height: 8px;
-            background-color: #fff;
-            animation: fall linear forwards;
-            border-radius: 2px;
+        .particle {
+            position: absolute; width: 6px; height: 12px; background: #fff;
+            animation: fall linear forwards; border-radius: 3px;
         }
-        @keyframes fall {
-            to { transform: translateY(100vh) rotate(720deg); }
-        }
+        @keyframes fall { to { transform: translateY(100vh) rotate(720deg); } }
     </style>
 </head>
-<body class="bg-[#09090b] text-slate-300 min-h-screen selection:bg-indigo-500/50 selection:text-white overflow-x-hidden font-sans relative">
+<body class="bg-studio-bg text-gray-300 min-h-screen selection:bg-brand-primary/40 selection:text-white font-sans overflow-hidden">
 
-    <!-- Ambient Background Blobs (Muted & Professional) -->
-    <div class="fixed inset-0 z-0 overflow-hidden pointer-events-none">
-        <div class="absolute top-[-10%] left-[-10%] w-[40rem] h-[40rem] bg-indigo-900/20 rounded-full mix-blend-screen filter blur-[100px] animate-blob"></div>
-        <div class="absolute top-[20%] right-[-10%] w-[35rem] h-[35rem] bg-blue-900/10 rounded-full mix-blend-screen filter blur-[100px] animate-blob animation-delay-2000"></div>
-        <div class="absolute bottom-[-20%] left-[20%] w-[40rem] h-[40rem] bg-violet-900/15 rounded-full mix-blend-screen filter blur-[100px] animate-blob animation-delay-4000"></div>
+    <!-- Cinematic Background Lights -->
+    <div class="fixed inset-0 z-0 pointer-events-none">
+        <div class="absolute top-[-20%] left-[20%] w-[40vw] h-[40vw] rounded-full bg-brand-primary/10 blur-[100px] animate-glow-pulse"></div>
+        <div class="absolute bottom-[-20%] right-[10%] w-[30vw] h-[30vw] rounded-full bg-brand-accent/10 blur-[100px] animate-glow-pulse" style="animation-delay: -1.5s;"></div>
     </div>
 
-    <!-- Main Application Container -->
-    <div class="relative z-10 container mx-auto px-4 py-4 max-w-4xl flex flex-col gap-5 h-screen">
+    <!-- Main App Container -->
+    <div class="relative z-10 flex flex-col h-screen max-w-6xl mx-auto px-4 py-4 gap-4">
         
-        <!-- Header -->
-        <header class="flex items-center justify-between py-2 flex-none">
-            <div class="flex items-center gap-3">
-                <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-500 to-cyan-500 flex items-center justify-center text-white font-bold shadow-[0_0_20px_rgba(99,102,241,0.3)]">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+        <!-- Header area -->
+        <header class="flex items-center justify-between flex-none py-2 border-b border-white/5 pb-4">
+            <div class="flex items-center gap-4">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-gray-800 to-black border border-gray-700 flex items-center justify-center shadow-lg">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
                     </svg>
                 </div>
-                <h1 class="text-2xl font-bold tracking-tight text-white flex items-center gap-2">
-                    Real Interview Experience<span class="text-[10px] uppercase tracking-widest bg-white/10 text-slate-300 px-2 py-0.5 rounded-md border border-white/10"></span>
-                </h1>
-            </div>
-            <button onclick="resetCanvas()" class="text-xs font-medium text-slate-400 hover:text-white hover:bg-red-500/80 bg-white/5 px-4 py-2 rounded-full border border-white/10 shadow-sm backdrop-blur-md transition-all duration-300 flex items-center gap-2 group">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5 group-hover:rotate-90 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-                </svg>
-            </button>
-        </header>
-
-        <!-- Vertical Layout Container -->
-        <div class="flex flex-col gap-5 h-full overflow-hidden pb-6">
-            
-            <!-- Input Column (Raycast-style Command Bar) -->
-            <div class="flex flex-col gap-2 group flex-none z-20">
-                <div class="glass-panel rounded-2xl px-1.5 py-1.5 glow-border transition-all duration-300 shadow-2xl focus-within:ring-1 focus-within:ring-indigo-500/50">
-                    <div class="bg-[#121214]/80 rounded-xl px-4 flex items-center gap-3 h-14 border border-white/5">
-                        <!-- Icon -->
-                        <div class="text-indigo-400">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                            </svg>
-                        </div>
-                        
-                        <!-- Smart Input -->
-                        <input 
-                            type="text"
-                            id="inputArea" 
-                            autocomplete="off"
-                            class="w-full bg-transparent border-none outline-none text-slate-100 placeholder-slate-500 font-medium text-base leading-relaxed h-full"
-                            placeholder=""
-                        />
-
-                        <!-- Status Indicator -->
-                        <div class="flex items-center gap-2 pl-3 border-l border-white/10">
-                            <span class="text-[10px] text-slate-500 font-mono tracking-wider">STATUS</span>
-                            <div id="statusDot" class="w-2.5 h-2.5 rounded-full bg-slate-600 transition-colors duration-300 shadow-inner"></div>
-                        </div>
+                <div>
+                    <h1 class="text-xl md:text-2xl font-bold tracking-tight text-white flex items-center gap-2">
+                        Real Interview <span class="text-brand-primary font-light">Experience</span>
+                    </h1>
+                    <div class="flex items-center gap-2 text-xs text-gray-500 mt-1">
+                        <span class="flex h-2 w-2 relative">
+                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span>
+                        </span>
+                        Live Quetions
                     </div>
                 </div>
             </div>
 
-            <!-- Output Column (Expanded Live Preview) -->
-            <div class="relative flex-1 min-h-0">
-                <!-- Subtle glow behind the main panel -->
-                <div class="absolute -inset-1 bg-gradient-to-b from-indigo-500/10 to-transparent rounded-[26px] blur-xl opacity-50 pointer-events-none"></div>
+            <!-- Action Buttons -->
+            <div class="flex items-center gap-3">
+                <div class="hidden sm:flex items-center bg-white/5 rounded-lg p-1 border border-white/5 gap-1">
+                    <button onclick="triggerWinner(1)" class="px-3 py-1.5 rounded-md text-xs font-bold text-gray-400 hover:text-white hover:bg-white/10 transition-colors">1ST</button>
+                    <button onclick="triggerWinner(2)" class="px-3 py-1.5 rounded-md text-xs font-bold text-gray-400 hover:text-white hover:bg-white/10 transition-colors">2ND</button>
+                    <button onclick="triggerWinner(3)" class="px-3 py-1.5 rounded-md text-xs font-bold text-gray-400 hover:text-white hover:bg-white/10 transition-colors">3RD</button>
+                </div>
                 
-                <div class="glass-panel rounded-[24px] p-8 h-full flex flex-col relative overflow-hidden">
-                    
-                    <!-- Decorative top bar (macOS style) -->
-                    <div class="flex items-center justify-between mb-6 flex-none">
-                        <div class="flex gap-2.5">
-                            <div class="w-3 h-3 rounded-full bg-red-500/80 border border-red-500/50 shadow-sm"></div>
-                            <div class="w-3 h-3 rounded-full bg-yellow-500/80 border border-yellow-500/50 shadow-sm"></div>
-                            <div class="w-3 h-3 rounded-full bg-green-500/80 border border-green-500/50 shadow-sm"></div>
-                        </div>
-                        <div class="flex items-center gap-2 text-slate-500">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                            </svg>
-                            <span class="text-[10px] font-semibold tracking-widest uppercase"></span>
-                        </div>
-                    </div>
+                <button onclick="resetCanvas()" class="text-xs font-medium text-red-400 hover:text-red-300 hover:bg-red-400/10 bg-white/5 px-4 py-2 rounded-lg border border-white/5 transition-all flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                    </svg>
+                    Clear Data
+                </button>
+            </div>
+        </header>
 
-                    <!-- Content Rendering Area (Scrollable) -->
-                    <div id="renderArea" class="flex-1 overflow-y-auto pr-3 flex flex-col gap-6 pb-10">
-                        <!-- Empty State -->
-                        <div class="flex-1 flex flex-col items-center justify-center text-slate-500 gap-4 transition-opacity duration-500">
-                            <div class="p-6 rounded-full bg-white/5 border border-white/5 mb-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 opacity-50" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                                </svg>
-                            </div>
-                            <p class="font-medium text-slate-400"></p>
-                            <p class="text-xs text-slate-600 font-mono"></p>
-                        </div>
-                    </div>
+        <!-- Smart Input Bar -->
+        <div class="flex-none z-20">
+            <div class="glass-box rounded-xl p-1 focus-within:ring-1 focus-within:ring-brand-primary/50 transition-all">
+                <div class="bg-black rounded-lg px-4 flex items-center gap-3 h-14 border border-white/5">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-brand-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                    </svg>
+                    <input 
+                        type="text"
+                        id="inputArea" 
+                        autocomplete="off"
+                        class="w-full bg-transparent border-none outline-none text-white placeholder-gray-600 font-medium text-sm h-full"
+                        placeholder=""
+                    />
+                    <div id="statusDot" class="w-2.5 h-2.5 rounded-full bg-gray-600 shadow-inner transition-colors duration-300"></div>
+                </div>
+            </div>
+        </div>
 
-                    <!-- Branding Footer -->
-                    <div class="mt-auto pt-5 border-t border-white/10 flex justify-between items-center opacity-70 flex-none">
-                        <span class="text-[10px] font-bold tracking-widest text-slate-500">Real Interview Experience</span>
-                        <div class="flex gap-1">
-                            <div class="h-1 w-4 bg-indigo-500 rounded-full"></div>
-                            <div class="h-1 w-2 bg-slate-700 rounded-full"></div>
-                            <div class="h-1 w-2 bg-slate-700 rounded-full"></div>
-                        </div>
-                    </div>
+        <!-- Render Viewport -->
+        <div class="flex-1 min-h-0 relative rounded-2xl overflow-hidden glass-box border border-white/10 flex flex-col">
+            <!-- Window Controls -->
+            <div class="h-8 bg-black/40 border-b border-white/5 flex items-center px-4 gap-2 flex-none">
+                <div class="w-2.5 h-2.5 rounded-full bg-red-500/80"></div>
+                <div class="w-2.5 h-2.5 rounded-full bg-yellow-500/80"></div>
+                <div class="w-2.5 h-2.5 rounded-full bg-green-500/80"></div>
+                <span class="ml-2 text-[10px] font-mono text-gray-500 tracking-wider">Java Script, React.js, Html and Css Quetions</span>
+            </div>
+
+            <!-- Content Area -->
+            <div id="renderArea" class="flex-1 overflow-y-auto p-6 md:p-10 flex flex-col gap-4 scroll-smooth">
+                <!-- Placeholder State -->
+                <div class="flex-1 flex flex-col items-center justify-center text-gray-600 gap-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 opacity-50" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
+                    <p class="font-medium text-sm">Real Interview Experience</p>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Winner Overlay (Cinematic Dark Mode) -->
-    <div id="winnerOverlay" class="fixed inset-0 z-50 hidden flex flex-col items-center justify-center winner-bg text-white overflow-hidden backdrop-blur-xl">
+    <!-- Winner Celebration Overlay -->
+    <div id="winnerOverlay" class="fixed inset-0 z-50 hidden flex flex-col items-center justify-center winner-backdrop text-white overflow-hidden backdrop-blur-xl">
         <div id="confettiContainer" class="absolute inset-0 pointer-events-none"></div>
-        
-        <div class="relative z-10 text-center scale-90 opacity-0 transition-all duration-700 ease-out transform" id="winnerTextContainer">
-            <p class="text-sm font-bold tracking-[0.3em] text-slate-400 mb-4 uppercase">Results</p>
-            <h2 id="winnerRank" class="text-9xl font-black mb-4 tracking-tighter text-transparent bg-clip-text bg-gradient-to-b from-white to-slate-400 drop-shadow-2xl">1ST</h2>
-            <div class="h-1 w-24 mx-auto bg-white/50 rounded-full mb-8"></div>
-            <h3 class="text-5xl font-extrabold uppercase tracking-[0.15em] text-glow" style="--glow-color: #a855f7;">Winner</h3>
+        <div class="relative z-10 text-center opacity-0 scale-90 transition-all duration-500 ease-out" id="winnerTextContainer">
+            <span class="inline-block px-4 py-1 rounded-full bg-white/10 text-[10px] font-bold tracking-[0.3em] text-gray-300 mb-6 uppercase border border-white/10">Result Announcement</span>
+            <h2 id="winnerRank" class="text-8xl md:text-9xl font-black mb-2 tracking-tighter text-white">1ST</h2>
+            <div class="h-1 w-24 mx-auto bg-white/20 rounded-full mb-6"></div>
+            <h3 id="winnerSubtext" class="text-4xl md:text-5xl font-extrabold uppercase tracking-[0.2em] text-glow-fx" style="--glow-color: #3b82f6;">Winner</h3>
         </div>
-
-        <button onclick="closeWinner()" class="absolute bottom-12 text-slate-400 hover:text-white text-xs font-semibold uppercase tracking-widest border border-white/20 px-8 py-3 rounded-full hover:bg-white/10 transition-all duration-300 hover:scale-105">
-            Dismiss Display
+        <button onclick="closeWinner()" class="absolute bottom-10 text-gray-400 hover:text-white text-xs font-bold uppercase tracking-widest border border-white/20 px-8 py-3 rounded-full bg-black/50 hover:bg-white/10 transition-all duration-300">
+            Close Overlay
         </button>
     </div>
 
     <script>
         const inputArea = document.getElementById('inputArea');
         const renderArea = document.getElementById('renderArea');
-        const winnerOverlay = document.getElementById('winnerOverlay');
-        const winnerTextContainer = document.getElementById('winnerTextContainer');
-        const winnerRank = document.getElementById('winnerRank');
         const statusDot = document.getElementById('statusDot');
-
-        // State Management
         let pastedContent = ""; 
 
-        // Initial Focus
+        // Focus management
         inputArea.focus();
+        document.addEventListener('click', () => { if(document.activeElement !== inputArea) inputArea.focus(); });
 
-        // 1. FLAWLESS PASTE HANDLER
+        // Event: FLAWLESS PASTE
         inputArea.addEventListener('paste', (e) => {
             e.preventDefault();
             const text = (e.clipboardData || window.clipboardData).getData('text');
-            
             if (text.trim()) {
                 pastedContent = text;
                 renderContent(text);
-                
                 inputArea.value = '';
-                inputArea.placeholder = "✨ Magic activated. Type commands (#, ##) for winners.";
-                
-                statusDot.className = "w-2.5 h-2.5 rounded-full bg-emerald-400 shadow-[0_0_12px_#34d399]";
-                setTimeout(() => {
-                    statusDot.className = "w-2.5 h-2.5 rounded-full bg-slate-600 shadow-inner";
-                }, 2000);
+                inputArea.placeholder = "";
+                statusDot.className = "w-2.5 h-2.5 rounded-full bg-brand-success shadow-[0_0_10px_#10b981]";
+                setTimeout(() => statusDot.className = "w-2.5 h-2.5 rounded-full bg-gray-600", 2000);
             }
         });
 
-        // 2. SMART TYPING HANDLER
+        // Event: SMART TYPING (For Winner Shortcuts)
         inputArea.addEventListener('input', (e) => {
-            const val = e.target.value;
-            
+            const val = e.target.value.trim();
             if (val.startsWith('#')) {
-                statusDot.className = "w-2.5 h-2.5 rounded-full bg-violet-400 shadow-[0_0_12px_#a78bfa]";
-            } else if (val.length > 0) {
-                statusDot.className = "w-2.5 h-2.5 rounded-full bg-indigo-400 shadow-[0_0_12px_#818cf8]";
-                renderContent(val);
+                statusDot.className = "w-2.5 h-2.5 rounded-full bg-brand-primary shadow-[0_0_10px_#3b82f6]";
             } else {
-                statusDot.className = "w-2.5 h-2.5 rounded-full bg-slate-600 shadow-inner";
-                if (pastedContent) {
-                    renderContent(pastedContent);
-                } else {
-                    renderEmptyState();
-                }
+                statusDot.className = "w-2.5 h-2.5 rounded-full bg-gray-600";
             }
         });
 
-        // 3. KEYBOARD SHORTCUTS
+        // Event: TRIGGER SHORTCUTS ON ENTER
         inputArea.addEventListener('keydown', (e) => {
             if (e.key === 'Enter') {
                 const val = inputArea.value.trim();
-                if (['#', '##', '###'].includes(val)) {
+                
+                if (val.startsWith('#')) {
                     e.preventDefault();
-                    triggerWinner(val.length);
+                    let rank = 1, name = '';
+                    
+                    if (val.startsWith('###')) { rank = 3; name = val.substring(3).trim(); }
+                    else if (val.startsWith('##')) { rank = 2; name = val.substring(2).trim(); }
+                    else if (val.startsWith('#')) { rank = 1; name = val.substring(1).trim(); }
+                    
+                    triggerWinner(rank, name);
                     inputArea.value = ''; 
-                    statusDot.className = "w-2.5 h-2.5 rounded-full bg-slate-600 shadow-inner";
+                    statusDot.className = "w-2.5 h-2.5 rounded-full bg-gray-600";
+                }
+                else if (val.length > 0) {
+                    renderContent(val);
+                    inputArea.value = '';
                 }
             }
         });
 
-        // Clear Canvas Action
+        // Reset the screen
         function resetCanvas() {
             pastedContent = "";
-            renderEmptyState();
+            renderArea.innerHTML = `
+                <div class="flex-1 flex flex-col items-center justify-center text-gray-600 gap-4 animate-fade-in">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 opacity-50" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
+                    <p class="font-medium text-sm">Screen Cleared. Paste new content.</p>
+                </div>`;
             inputArea.value = '';
-            inputArea.placeholder = "Paste anything or type commands (#, ##) here...";
-            statusDot.className = "w-2.5 h-2.5 rounded-full bg-slate-600 shadow-inner";
+            inputArea.placeholder = "";
             inputArea.focus();
         }
 
-        // Updated for Dark Theme Empty State
-        function renderEmptyState() {
-             renderArea.innerHTML = `
-                <div class="flex-1 flex flex-col items-center justify-center text-slate-500 gap-4 transition-opacity duration-500">
-                    <div class="p-6 rounded-full bg-white/5 border border-white/5 mb-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 opacity-50" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                        </svg>
-                    </div>
-                    <p class="font-medium text-slate-400">Waiting for clipboard paste...</p>
-                    <p class="text-xs text-slate-600 font-mono">Press Ctrl+V or Cmd+V anywhere</p>
-                </div>`;
-        }
-
-        // The Smart Rendering Logic (Updated for Dark Professional Theme)
+        // ==========================================
+        // SMART PARSER: Core Logic Engine
+        // ==========================================
         function renderContent(text) {
             if (!text.trim()) return;
 
+            // 1. RAW CODE DETECTION
+            const isCodeLikely = (str) => {
+                if (str.includes('```')) return false; 
+                const lines = str.split('\n');
+                let codeHints = 0, textHints = 0;
+
+                const codePatterns = [
+                    /function\s*\w*\s*\(/, /const\s+\w+\s*=/, /let\s+\w+\s*=/, /var\s+\w+\s*=/,
+                    /import\s+.*from/, /import\s+\w+/, /export\s+default/, /class\s+\w+/, /public\s+class/,
+                    /def\s+\w+\s*\(/, /if\s*\(/, /for\s*\(/, /while\s*\(/, /return\s+/,
+                    /console\./, /System\.out/, /print\s*\(/, /#include/, /<[a-zA-Z]+>/i,
+                    /=>/, /===/, /!==/, /==/, /\+=/, /\-=/, 
+                    /^\s*SELECT\b/i, /^\s*FROM\b/i, /^\s*WHERE\b/i, /^\s*UPDATE\b/i, /^\s*INSERT\b/i, /^\s*DELETE\b/i,
+                    /for\s+\w+\s+in\s+/, /if\s+.+:/, /elif\s+.+:/, /else:/
+                ];
+
+                lines.forEach(l => {
+                    let line = l.trim();
+                    if(!line) return;
+                    if (codePatterns.some(regex => regex.test(line)) || line.endsWith(';') || line.endsWith('{') || line === '}' || /^[\s]*[\]\}][\s,;]*$/.test(line) || line.includes(' = ') || /^[\w\.]+\s*\(.*\)/.test(line)) {
+                        codeHints++;
+                    } else if (/^[A-Z][a-z]+/.test(line) && /[.?!]$/.test(line)) {
+                        textHints++;
+                    }
+                });
+                return codeHints > 0 && codeHints >= textHints;
+            };
+
+            if (isCodeLikely(text)) {
+                text = "```\n" + text + "\n```";
+            }
+
             let html = '';
             
+            // 2. EXTRACT CODE BLOCKS
             const codeBlocks = [];
-            let processedText = text.replace(/```([\s\S]*?)```/g, (match, code) => {
-                codeBlocks.push(code.trim());
-                return `__CODE_BLOCK_${codeBlocks.length - 1}__`;
+            let processedText = text.replace(/```(\w*)\n([\s\S]*?)```/g, (match, lang, code) => {
+                codeBlocks.push({ lang: lang.trim(), code: code.trim() });
+                return `\n__CODE_BLOCK_${codeBlocks.length - 1}__\n`;
+            });
+            processedText = processedText.replace(/```([\s\S]*?)```/g, (match, code) => {
+                codeBlocks.push({ lang: '', code: code.trim() });
+                return `\n__CODE_BLOCK_${codeBlocks.length - 1}__\n`;
             });
 
+            // 3. PARSE MULTILINE QUESTION (H1/H2)
             const lines = processedText.split('\n');
-            let isFirstLine = true; 
+            let isExtractingQuestion = true;
+            let questionLines = [];
 
-            lines.forEach((line, index) => {
-                line = line.trim();
-                
-                if (!line) {
-                    html += '<div class="h-3"></div>'; 
-                    return;
+            const isLooksLikeCode = (str) => {
+                return /^[a-z_][a-zA-Z0-9_]*\s*=/.test(str) || /[{}\[\]]/.test(str) || /^(const|let|var|function|def|class|import|#include)/.test(str) || /==|!=|=>|\+=|\-=/.test(str) || /console\.|System\.|print\(/.test(str) || /;\s*$/.test(str) || /^\s*(SELECT|UPDATE|INSERT|DELETE|FROM|WHERE)\b/i.test(str); 
+            };
+
+            // Options Regex: Jaise A), 1., (A)
+            const isOptionRegex = /^(\(?[a-zA-Z][\).]|[0-9]+[\).]|[-*])\s+(.*)/;
+
+            for (let i = 0; i < lines.length; i++) {
+                let line = lines[i].trim();
+
+                // MULTILINE QUESTION LOGIC
+                if (isExtractingQuestion) {
+                    // Agar sabse upar khali jagah ho toh usko ignore karo
+                    if (!line && questionLines.length === 0) continue;
+
+                    // Agar question text chalu hone ke baad khali jagah aaye -> Question End
+                    if (!line) {
+                        isExtractingQuestion = false;
+                        let combinedQ = questionLines.join('<br>');
+                        html += `<h1 class="text-2xl md:text-3xl lg:text-4xl font-extrabold text-white leading-snug mb-8 pb-5 border-b border-white/10 animate-slide-up tracking-tight question-glow">${combinedQ}</h1>`;
+                        html += '<div class="h-2"></div>';
+                        continue;
+                    }
+
+                    let isFirstContentLine = questionLines.length === 0;
+
+                    // Conditions jo Question Extraction ko rokengi
+                    if (line.includes('__CODE_BLOCK_') || 
+                        isLooksLikeCode(line) || 
+                        (!isFirstContentLine && isOptionRegex.test(line)) || // Pehli line 1. ho sakti hai, par agli line pe option mile toh H1 ban jaye
+                        line.match(/^(Interviewer|Candidate|HR|You|Me):/i) || 
+                        line.match(/^##/) || 
+                        line.match(/^>/)) 
+                    {
+                        isExtractingQuestion = false;
+                        
+                        if (questionLines.length > 0) {
+                            let combinedQ = questionLines.join('<br>');
+                            html += `<h1 class="text-2xl md:text-3xl lg:text-4xl font-extrabold text-white leading-snug mb-8 pb-5 border-b border-white/10 animate-slide-up tracking-tight question-glow">${combinedQ}</h1>`;
+                        }
+                        // Continue mat likhna, taaki ye line normal process ho jaye!
+                    } else {
+                        // Formatting
+                        let formattedLine = line
+                            .replace(/\*\*(.*?)\*\*/g, '<span class="text-brand-primary font-bold">$1</span>')
+                            .replace(/\`(.*?)\`/g, '<code class="bg-white/10 text-brand-primary px-1.5 py-0.5 rounded text-sm font-mono border border-white/5">$1</code>');
+                        
+                        questionLines.push(formattedLine);
+                        continue; // Question me add ho gaya, next line pe jao
+                    }
                 }
 
+                // --- NORMAL TEXT PROCESSING ---
+                if (!line) { 
+                    html += '<div class="h-2"></div>'; 
+                    continue; 
+                }
+
+                // Render Extracted Code Block
                 if (line.includes('__CODE_BLOCK_')) {
-                    const blockIndex = parseInt(line.match(/__CODE_BLOCK_(\d+)__/)[1]);
-                    html += formatCode(codeBlocks[blockIndex]);
-                    isFirstLine = false; 
-                    return;
+                    const blockMatch = line.match(/__CODE_BLOCK_(\d+)__/);
+                    if (blockMatch && blockMatch[1]) {
+                        const blockIndex = parseInt(blockMatch[1], 10);
+                        if (codeBlocks[blockIndex]) {
+                            html += formatCodeUI(codeBlocks[blockIndex].code, codeBlocks[blockIndex].lang, i);
+                        }
+                    }
+                    continue;
                 }
 
-                // Professional Dark H1 Heading
-                if (isFirstLine) {
-                    html += `<h1 class="text-3xl md:text-4xl font-extrabold text-white leading-tight mb-8 pb-5 border-b border-white/10 animate-fade-in-up tracking-tight">${line}</h1>`;
-                    isFirstLine = false;
-                    return;
-                }
+                let fLine = line
+                    .replace(/\*\*(.*?)\*\*/g, '<span class="text-brand-primary font-bold">$1</span>')
+                    .replace(/\`(.*?)\`/g, '<code class="bg-white/10 text-brand-primary px-1.5 py-0.5 rounded text-sm font-mono border border-white/5">$1</code>');
 
-                // Professional Dark MCQ Cards
-                const optionMatch = line.match(/^([a-zA-Z][\).]|[0-9]+[\).]|[-*])\s+(.*)/);
-                
-                if (optionMatch) {
-                    const bullet = optionMatch[1].replace(/[-*]/, '•'); 
-                    const content = optionMatch[2];
-                    
+                // Dialogues
+                const dialogueMatch = line.match(/^(Interviewer|Candidate|HR|You|Me):\s*(.*)/i);
+                if (dialogueMatch) {
+                    const speaker = dialogueMatch[1];
+                    const msg = dialogueMatch[2].replace(/\*\*(.*?)\*\*/g, '<span class="text-white font-bold">$1</span>').replace(/\`(.*?)\`/g, '<code class="bg-white/10 text-brand-primary px-1.5 py-0.5 rounded text-sm font-mono">$1</code>');
+                    const isUser = ['candidate', 'me', 'you'].includes(speaker.toLowerCase());
+                    const align = isUser ? 'justify-end' : 'justify-start';
+                    const bubble = isUser ? 'bg-brand-primary/20 border-brand-primary/30 text-white' : 'bg-white/5 border-white/10 text-gray-300';
+                    const badge = isUser ? 'bg-brand-primary text-white' : 'bg-gray-700 text-white';
+
                     html += `
-                        <div class="group flex items-center gap-4 p-4 rounded-xl bg-[#1e1e22]/60 border border-white/5 hover:border-indigo-500/40 hover:bg-[#232328] hover:-translate-y-0.5 transition-all duration-300 cursor-pointer animate-fade-in-up shadow-sm" style="animation-delay: ${index * 40}ms">
-                            <div class="flex-shrink-0 w-10 h-10 rounded-full bg-white/5 text-slate-400 font-bold flex items-center justify-center group-hover:bg-indigo-500 group-hover:text-white transition-colors duration-300 border border-white/5">
-                                ${bullet.replace(/[\).]/, '')}
+                        <div class="flex ${align} w-full my-2 animate-slide-up" style="animation-delay: ${i * 10}ms">
+                            <div class="flex gap-3 max-w-[85%] ${isUser ? 'flex-row-reverse' : 'flex-row'}">
+                                <div class="w-7 h-7 rounded-full ${badge} flex items-center justify-center text-xs font-bold shrink-0">${speaker[0].toUpperCase()}</div>
+                                <div class="flex flex-col ${isUser ? 'items-end' : 'items-start'}">
+                                    <span class="text-[10px] font-bold tracking-wider text-gray-500 uppercase mb-1 px-1">${speaker}</span>
+                                    <div class="px-4 py-2.5 rounded-2xl ${bubble} border shadow-lg text-[15px] leading-relaxed">
+                                        ${msg}
+                                    </div>
+                                </div>
                             </div>
-                            <span class="text-[17px] font-medium text-slate-300 group-hover:text-white transition-colors">${content}</span>
                         </div>
                     `;
-                } else {
-                    // Dark Paragraph Text
-                    html += `<p class="text-slate-400 text-[17px] leading-relaxed mb-3">${line}</p>`;
+                    continue;
                 }
-            });
+
+                // Subheadings
+                const subHeadMatch = line.match(/^##\s+(.*)/);
+                if (subHeadMatch) {
+                    html += `<h2 class="text-xl font-bold text-brand-primary mt-6 mb-3 animate-slide-up">${subHeadMatch[1].replace(/\*\*(.*?)\*\*/g, '<span class="text-white">$1</span>')}</h2>`;
+                    continue;
+                }
+
+                // Blockquotes
+                const quoteMatch = line.match(/^>\s+(.*)/);
+                if (quoteMatch) {
+                    html += `
+                        <blockquote class="border-l-4 border-brand-primary bg-brand-primary/10 py-3 px-5 my-4 rounded-r-lg italic text-gray-300 animate-slide-up">
+                            "${quoteMatch[1]}"
+                        </blockquote>
+                    `;
+                    continue;
+                }
+
+                // MCQ Options
+                const listMatch = line.match(isOptionRegex);
+                if (listMatch) {
+                    const bullet = listMatch[1].replace(/[-*]/, '•'); 
+                    const content = listMatch[2].replace(/\*\*(.*?)\*\*/g, '<span class="text-white font-bold">$1</span>').replace(/\`(.*?)\`/g, '<code class="bg-white/10 text-brand-primary px-1.5 py-0.5 rounded text-sm font-mono border border-white/5">$1</code>');
+                    
+                    html += `
+                        <div class="flex items-start gap-3 p-3.5 my-1.5 rounded-xl bg-studio-card border border-white/5 hover:border-brand-primary/50 hover:bg-white/5 transition-all cursor-pointer animate-slide-up shadow-sm group" style="animation-delay: ${i * 10}ms">
+                            <div class="flex-shrink-0 w-7 h-7 rounded bg-white/5 text-gray-400 font-bold flex items-center justify-center group-hover:bg-brand-primary group-hover:text-white transition-colors text-sm border border-white/5">
+                                ${bullet.replace(/[\).]/, '')}
+                            </div>
+                            <span class="text-[15px] text-gray-300 group-hover:text-white pt-0.5">${content}</span>
+                        </div>
+                    `;
+                    continue;
+                } 
+
+                // Standard Paragraph
+                html += `<p class="text-gray-400 text-[15px] leading-relaxed mb-2 animate-slide-up" style="animation-delay: ${i * 10}ms">${fLine}</p>`;
+            }
+
+            // EDGE CASE: If completely question only
+            if (isExtractingQuestion && questionLines.length > 0) {
+                let combinedQ = questionLines.join('<br>');
+                html += `<h1 class="text-2xl md:text-3xl lg:text-4xl font-extrabold text-white leading-snug mb-8 pb-5 border-b border-white/10 animate-slide-up tracking-tight question-glow">${combinedQ}</h1>`;
+            }
 
             renderArea.innerHTML = html;
         }
 
-        // Professional Dark Code Block
-        function formatCode(code) {
-            let formatted = code
-                .replace(/</g, '&lt;')
-                .replace(/>/g, '&gt;')
-                .replace(/\b(const|let|var|function|return|if|else|for|while|class|import|from)\b/g, '<span class="code-syntax-keyword">$1</span>')
-                .replace(/\b(\d+)\b/g, '<span class="code-syntax-number">$1</span>')
-                .replace(/(['"`].*?['"`])/g, '<span class="code-syntax-string">$1</span>')
-                .replace(/(\/\/.*)/g, '<span class="code-syntax-comment">$1</span>');
+        // ==========================================
+        // PRO CODE BLOCK RENDERER
+        // ==========================================
+        function formatCodeUI(code, lang, index) {
+            const safeEscape = (str) => str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
+            let escapedCode = safeEscape(code);
+
+            let highlighted = escapedCode
+                .replace(/\b(const|let|var|function|return|if|else|for|while|class|import|from|export|default|switch|case|break|public|private|protected|void|int|string|boolean|new|this)\b/g, '<span class="code-keyword">$1</span>')
+                .replace(/\b([A-Z][a-zA-Z0-9_]*)\b/g, '<span class="code-class">$1</span>')
+                .replace(/\b([a-zA-Z_]\w*)\s*(?=\()/g, '<span class="code-function">$1</span>')
+                .replace(/\b(\d+)\b/g, '<span class="code-number">$1</span>')
+                .replace(/(&quot;.*?&quot;|&#039;.*?&#039;|`.*?`)/g, '<span class="code-string">$1</span>')
+                .replace(/(\/\/.*|\/\*[\s\S]*?\*\/)/g, '<span class="code-comment">$1</span>');
+
+            const langDisplay = lang ? lang.toUpperCase() : 'CODE';
+            
+            const lines = highlighted.split('\n');
+            const numberedLines = lines.map((line, i) => {
+                return `
+                    <div class="table-row hover:bg-white/5">
+                        <span class="table-cell text-right pr-4 text-gray-600 select-none text-xs border-r border-white/10 align-middle w-8">${i + 1}</span>
+                        <span class="table-cell pl-4 align-middle whitespace-pre">${line || ' '}</span>
+                    </div>`;
+            }).join('');
+
+            const rawBase64 = btoa(unescape(encodeURIComponent(code)));
 
             return `
-                <div class="my-5 rounded-xl overflow-hidden shadow-2xl border border-white/10 animate-pop bg-[#0d0d10]">
-                    <div class="bg-white/5 px-4 py-2.5 flex items-center gap-2 border-b border-white/5">
-                        <div class="w-2.5 h-2.5 rounded-full bg-slate-600"></div>
-                        <div class="w-2.5 h-2.5 rounded-full bg-slate-600"></div>
-                        <div class="w-2.5 h-2.5 rounded-full bg-slate-600"></div>
-                        <span class="ml-2 text-[11px] text-slate-500 font-mono tracking-wider">SOURCE_CODE</span>
+                <div class="my-4 rounded-xl overflow-hidden border border-white/10 shadow-2xl animate-slide-up bg-[#0d1117] flex flex-col" style="animation-delay: ${index * 10}ms">
+                    <div class="bg-black/80 px-4 py-2.5 flex items-center justify-between border-b border-white/10 flex-none">
+                        <div class="flex items-center gap-3">
+                            <span class="text-[10px] text-brand-primary font-mono font-bold tracking-widest bg-brand-primary/10 px-2 py-0.5 rounded">${langDisplay}</span>
+                        </div>
+                        <button onclick="copyToClipboard(this, '${rawBase64}')" class="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-widest text-gray-400 hover:text-white bg-white/5 hover:bg-white/10 px-3 py-1.5 rounded transition-all border border-white/5">
+                            <svg class="h-3 w-3 copy-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>
+                            <span class="copy-text">Copy</span>
+                        </button>
                     </div>
-                    <pre class="p-5 overflow-x-auto text-[13px] md:text-sm font-mono leading-relaxed text-[#f8f8f2]"><code>${formatted}</code></pre>
+                    <div class="p-4 overflow-x-auto text-[25px] flex-wrap font-mono text-gray-300 bg-[#0d1117]">
+                        <div class="table border-collapse w-full">
+                            ${numberedLines}
+                        </div>
+                    </div>
                 </div>
             `;
         }
 
-        // Winner Animation Logic
-        function triggerWinner(rank) {
-            let rankText = "1ST";
-            let color = "#38bdf8"; // Light Blue
-            
-            if (rank === 2) { rankText = "2ND"; color = "#818cf8"; } // Indigo
-            if (rank === 3) { rankText = "3RD"; color = "#c084fc"; } // Purple
+        // ==========================================
+        // COPY UTILITY
+        // ==========================================
+        window.copyToClipboard = function(btn, b64Code) {
+            try {
+                const actualCode = decodeURIComponent(escape(atob(b64Code)));
+                
+                if (navigator.clipboard && window.isSecureContext) {
+                    navigator.clipboard.writeText(actualCode).then(() => showSuccess(btn));
+                } else {
+                    let ta = document.createElement("textarea");
+                    ta.value = actualCode;
+                    document.body.appendChild(ta);
+                    ta.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(ta);
+                    showSuccess(btn);
+                }
+            } catch(e) { console.error("Copy failed", e); }
+        };
 
-            winnerRank.innerText = rankText;
-            winnerTextContainer.style.setProperty('--glow-color', color);
+        function showSuccess(btn) {
+            const originalHTML = btn.innerHTML;
+            btn.innerHTML = `<svg class="h-3 w-3 text-brand-success" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg> <span class="text-brand-success">Copied</span>`;
+            setTimeout(() => { btn.innerHTML = originalHTML; }, 2000);
+        }
+
+        // ==========================================
+        // WINNER ANIMATION (Flawless Trigger)
+        // ==========================================
+        function triggerWinner(rank, name = "") {
+            const overlay = document.getElementById('winnerOverlay');
+            const container = document.getElementById('winnerTextContainer');
+            const rankLabel = document.getElementById('winnerRank');
+            const subtextLabel = document.getElementById('winnerSubtext');
             
-            winnerOverlay.classList.remove('hidden');
+            let rankTxt = "1ST", color = "#3b82f6"; // Blue
+            if (rank === 2) { rankTxt = "2ND"; color = "#8b5cf6"; } // Purple
+            if (rank === 3) { rankTxt = "3RD"; color = "#10b981"; } // Emerald
+
+            if (name) {
+                rankLabel.innerText = name.toUpperCase();
+                // Dynamic font size based on name length
+                if (name.length > 10) rankLabel.className = "text-5xl md:text-7xl font-black mb-2 tracking-tighter text-white";
+                else if (name.length > 6) rankLabel.className = "text-7xl md:text-8xl font-black mb-2 tracking-tighter text-white";
+                else rankLabel.className = "text-8xl md:text-9xl font-black mb-2 tracking-tighter text-white";
+                
+                subtextLabel.innerText = rankTxt + " WINNER";
+            } else {
+                rankLabel.innerText = rankTxt;
+                rankLabel.className = "text-8xl md:text-9xl font-black mb-2 tracking-tighter text-white";
+                subtextLabel.innerText = "WINNER";
+            }
+
+            container.style.setProperty('--glow-color', color);
+            
+            overlay.classList.remove('hidden');
             
             requestAnimationFrame(() => {
-                winnerTextContainer.style.transform = "scale(1)";
-                winnerTextContainer.style.opacity = "1";
+                container.style.transform = "scale(1)";
+                container.style.opacity = "1";
             });
 
-            createConfetti(color);
+            createParticles(color);
         }
 
         function closeWinner() {
-            winnerTextContainer.style.transform = "scale(0.9)";
-            winnerTextContainer.style.opacity = "0";
+            const overlay = document.getElementById('winnerOverlay');
+            const container = document.getElementById('winnerTextContainer');
+            
+            container.style.transform = "scale(0.9)";
+            container.style.opacity = "0";
             setTimeout(() => {
-                winnerOverlay.classList.add('hidden');
+                overlay.classList.add('hidden');
                 document.getElementById('confettiContainer').innerHTML = '';
-            }, 500);
+            }, 400);
             inputArea.focus();
         }
 
-        function createConfetti(colorHex) {
+        function createParticles(color) {
             const container = document.getElementById('confettiContainer');
-            const count = 60;
-            const colors = [colorHex, '#e2e8f0', '#94a3b8'];
-
-            for (let i = 0; i < count; i++) {
-                const conf = document.createElement('div');
-                conf.className = 'confetti';
-                conf.style.left = Math.random() * 100 + 'vw';
-                conf.style.animationDuration = (Math.random() * 3 + 2) + 's';
-                conf.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-                conf.style.opacity = Math.random() * 0.8 + 0.2;
-                container.appendChild(conf);
+            container.innerHTML = ''; // clear old
+            for (let i = 0; i < 60; i++) {
+                const p = document.createElement('div');
+                p.className = 'particle';
+                p.style.left = Math.random() * 100 + 'vw';
+                p.style.animationDuration = (Math.random() * 2 + 1.5) + 's';
+                p.style.background = Math.random() > 0.5 ? color : '#ffffff';
+                p.style.opacity = Math.random() * 0.8 + 0.2;
+                container.appendChild(p);
             }
         }
-
-        renderEmptyState();
-
     </script>
 </body>
 </html>
