@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Paste Viewer | Midnight Pro</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        // Naya professional dark palette
+                        midnight: {
+                            base: '#09090b',
+                            panel: '#18181b',
+                            lighter: '#27272a',
+                        },
+                        glass: {
+                            100: 'rgba(24, 24, 27, 0.4)',
+                            200: 'rgba(24, 24, 27, 0.65)',
+                        },
+                    },
+                    animation: {
+                        'blob': 'blob 10s infinite',
+                        'fade-in-up': 'fadeInUp 0.5s ease-out forwards',
+                        'pop': 'pop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards',
+                    },
+                    keyframes: {
+                        blob: {
+                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
+                            '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+                            '100%': { transform: 'translate(0px, 0px) scale(1)' },
+                        },
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(10px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        pop: {
+                            '0%': { transform: 'scale(0.9)', opacity: '0' },
+                            '100%': { transform: 'scale(1)', opacity: '1' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Professional Dark Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Sleek Dark Glassmorphism */
+        .glass-panel {
+            background: rgba(24, 24, 27, 0.4);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+        }
+
+        .code-syntax-keyword { color: #ff79c6; font-weight: bold; }
+        .code-syntax-string { color: #f1fa8c; }
+        .code-syntax-comment { color: #6272a4; font-style: italic; }
+        .code-syntax-def { color: #50fa7b; }
+        .code-syntax-number { color: #bd93f9; }
+
+        /* Subtle Cyber Glow Utility */
+        .glow-border {
+            position: relative;
+        }
+        .glow-border::after {
+            content: '';
+            position: absolute;
+            top: -1px; left: -1px; right: -1px; bottom: -1px;
+            border-radius: inherit;
+            background: linear-gradient(45deg, #3B82F6, #6366f1, #8B5CF6);
+            opacity: 0;
+            z-index: -1;
+            transition: opacity 0.4s ease;
+        }
+        .glow-border:focus-within::after, .glow-border:hover::after {
+            opacity: 0.6;
+            filter: blur(10px);
+        }
+
+        /* Winner Overlay Animations */
+        .winner-bg {
+            background: radial-gradient(circle at center, #1e1b4b 0%, #000000 100%);
+        }
+        .text-glow {
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5), 0 0 20px rgba(255, 255, 255, 0.3), 0 0 40px var(--glow-color);
+        }
+        .confetti {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background-color: #fff;
+            animation: fall linear forwards;
+            border-radius: 2px;
+        }
+        @keyframes fall {
+            to { transform: translateY(100vh) rotate(720deg); }
+        }
+    </style>
+</head>
+<body class="bg-[#09090b] text-slate-300 min-h-screen selection:bg-indigo-500/50 selection:text-white overflow-x-hidden font-sans relative">
+
+    <!-- Ambient Background Blobs (Muted & Professional) -->
+    <div class="fixed inset-0 z-0 overflow-hidden pointer-events-none">
+        <div class="absolute top-[-10%] left-[-10%] w-[40rem] h-[40rem] bg-indigo-900/20 rounded-full mix-blend-screen filter blur-[100px] animate-blob"></div>
+        <div class="absolute top-[20%] right-[-10%] w-[35rem] h-[35rem] bg-blue-900/10 rounded-full mix-blend-screen filter blur-[100px] animate-blob animation-delay-2000"></div>
+        <div class="absolute bottom-[-20%] left-[20%] w-[40rem] h-[40rem] bg-violet-900/15 rounded-full mix-blend-screen filter blur-[100px] animate-blob animation-delay-4000"></div>
+    </div>
+
+    <!-- Main Application Container -->
+    <div class="relative z-10 container mx-auto px-4 py-4 max-w-4xl flex flex-col gap-5 h-screen">
+        
+        <!-- Header -->
+        <header class="flex items-center justify-between py-2 flex-none">
+            <div class="flex items-center gap-3">
+                <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-500 to-cyan-500 flex items-center justify-center text-white font-bold shadow-[0_0_20px_rgba(99,102,241,0.3)]">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                    </svg>
+                </div>
+                <h1 class="text-2xl font-bold tracking-tight text-white flex items-center gap-2">
+                    SmartPaste <span class="text-[10px] uppercase tracking-widest bg-white/10 text-slate-300 px-2 py-0.5 rounded-md border border-white/10">Pro</span>
+                </h1>
+            </div>
+            <button onclick="resetCanvas()" class="text-xs font-medium text-slate-400 hover:text-white hover:bg-red-500/80 bg-white/5 px-4 py-2 rounded-full border border-white/10 shadow-sm backdrop-blur-md transition-all duration-300 flex items-center gap-2 group">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5 group-hover:rotate-90 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                </svg>
+                Clear Canvas
+            </button>
+        </header>
+
+        <!-- Vertical Layout Container -->
+        <div class="flex flex-col gap-5 h-full overflow-hidden pb-6">
+            
+            <!-- Input Column (Raycast-style Command Bar) -->
+            <div class="flex flex-col gap-2 group flex-none z-20">
+                <div class="glass-panel rounded-2xl px-1.5 py-1.5 glow-border transition-all duration-300 shadow-2xl focus-within:ring-1 focus-within:ring-indigo-500/50">
+                    <div class="bg-[#121214]/80 rounded-xl px-4 flex items-center gap-3 h-14 border border-white/5">
+                        <!-- Icon -->
+                        <div class="text-indigo-400">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                            </svg>
+                        </div>
+                        
+                        <!-- Smart Input -->
+                        <input 
+                            type="text"
+                            id="inputArea" 
+                            autocomplete="off"
+                            class="w-full bg-transparent border-none outline-none text-slate-100 placeholder-slate-500 font-medium text-base leading-relaxed h-full"
+                            placeholder="Paste anything or type commands (#, ##) here..."
+                        />
+
+                        <!-- Status Indicator -->
+                        <div class="flex items-center gap-2 pl-3 border-l border-white/10">
+                            <span class="text-[10px] text-slate-500 font-mono tracking-wider">STATUS</span>
+                            <div id="statusDot" class="w-2.5 h-2.5 rounded-full bg-slate-600 transition-colors duration-300 shadow-inner"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Output Column (Expanded Live Preview) -->
+            <div class="relative flex-1 min-h-0">
+                <!-- Subtle glow behind the main panel -->
+                <div class="absolute -inset-1 bg-gradient-to-b from-indigo-500/10 to-transparent rounded-[26px] blur-xl opacity-50 pointer-events-none"></div>
+                
+                <div class="glass-panel rounded-[24px] p-8 h-full flex flex-col relative overflow-hidden">
+                    
+                    <!-- Decorative top bar (macOS style) -->
+                    <div class="flex items-center justify-between mb-6 flex-none">
+                        <div class="flex gap-2.5">
+                            <div class="w-3 h-3 rounded-full bg-red-500/80 border border-red-500/50 shadow-sm"></div>
+                            <div class="w-3 h-3 rounded-full bg-yellow-500/80 border border-yellow-500/50 shadow-sm"></div>
+                            <div class="w-3 h-3 rounded-full bg-green-500/80 border border-green-500/50 shadow-sm"></div>
+                        </div>
+                        <div class="flex items-center gap-2 text-slate-500">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                            </svg>
+                            <span class="text-[10px] font-semibold tracking-widest uppercase">Live Viewport</span>
+                        </div>
+                    </div>
+
+                    <!-- Content Rendering Area (Scrollable) -->
+                    <div id="renderArea" class="flex-1 overflow-y-auto pr-3 flex flex-col gap-6 pb-10">
+                        <!-- Empty State -->
+                        <div class="flex-1 flex flex-col items-center justify-center text-slate-500 gap-4 transition-opacity duration-500">
+                            <div class="p-6 rounded-full bg-white/5 border border-white/5 mb-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 opacity-50" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                </svg>
+                            </div>
+                            <p class="font-medium text-slate-400">Waiting for clipboard paste...</p>
+                            <p class="text-xs text-slate-600 font-mono">Press Ctrl+V or Cmd+V anywhere</p>
+                        </div>
+                    </div>
+
+                    <!-- Branding Footer -->
+                    <div class="mt-auto pt-5 border-t border-white/10 flex justify-between items-center opacity-70 flex-none">
+                        <span class="text-[10px] font-bold tracking-widest text-slate-500">POWERED BY SMARTPASTE</span>
+                        <div class="flex gap-1">
+                            <div class="h-1 w-4 bg-indigo-500 rounded-full"></div>
+                            <div class="h-1 w-2 bg-slate-700 rounded-full"></div>
+                            <div class="h-1 w-2 bg-slate-700 rounded-full"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Winner Overlay (Cinematic Dark Mode) -->
+    <div id="winnerOverlay" class="fixed inset-0 z-50 hidden flex flex-col items-center justify-center winner-bg text-white overflow-hidden backdrop-blur-xl">
+        <div id="confettiContainer" class="absolute inset-0 pointer-events-none"></div>
+        
+        <div class="relative z-10 text-center scale-90 opacity-0 transition-all duration-700 ease-out transform" id="winnerTextContainer">
+            <p class="text-sm font-bold tracking-[0.3em] text-slate-400 mb-4 uppercase">Results</p>
+            <h2 id="winnerRank" class="text-9xl font-black mb-4 tracking-tighter text-transparent bg-clip-text bg-gradient-to-b from-white to-slate-400 drop-shadow-2xl">1ST</h2>
+            <div class="h-1 w-24 mx-auto bg-white/50 rounded-full mb-8"></div>
+            <h3 class="text-5xl font-extrabold uppercase tracking-[0.15em] text-glow" style="--glow-color: #a855f7;">Winner</h3>
+        </div>
+
+        <button onclick="closeWinner()" class="absolute bottom-12 text-slate-400 hover:text-white text-xs font-semibold uppercase tracking-widest border border-white/20 px-8 py-3 rounded-full hover:bg-white/10 transition-all duration-300 hover:scale-105">
+            Dismiss Display
+        </button>
+    </div>
+
+    <script>
+        const inputArea = document.getElementById('inputArea');
+        const renderArea = document.getElementById('renderArea');
+        const winnerOverlay = document.getElementById('winnerOverlay');
+        const winnerTextContainer = document.getElementById('winnerTextContainer');
+        const winnerRank = document.getElementById('winnerRank');
+        const statusDot = document.getElementById('statusDot');
+
+        // State Management
+        let pastedContent = ""; 
+
+        // Initial Focus
+        inputArea.focus();
+
+        // 1. FLAWLESS PASTE HANDLER
+        inputArea.addEventListener('paste', (e) => {
+            e.preventDefault();
+            const text = (e.clipboardData || window.clipboardData).getData('text');
+            
+            if (text.trim()) {
+                pastedContent = text;
+                renderContent(text);
+                
+                inputArea.value = '';
+                inputArea.placeholder = "✨ Magic activated. Type commands (#, ##) for winners.";
+                
+                statusDot.className = "w-2.5 h-2.5 rounded-full bg-emerald-400 shadow-[0_0_12px_#34d399]";
+                setTimeout(() => {
+                    statusDot.className = "w-2.5 h-2.5 rounded-full bg-slate-600 shadow-inner";
+                }, 2000);
+            }
+        });
+
+        // 2. SMART TYPING HANDLER
+        inputArea.addEventListener('input', (e) => {
+            const val = e.target.value;
+            
+            if (val.startsWith('#')) {
+                statusDot.className = "w-2.5 h-2.5 rounded-full bg-violet-400 shadow-[0_0_12px_#a78bfa]";
+            } else if (val.length > 0) {
+                statusDot.className = "w-2.5 h-2.5 rounded-full bg-indigo-400 shadow-[0_0_12px_#818cf8]";
+                renderContent(val);
+            } else {
+                statusDot.className = "w-2.5 h-2.5 rounded-full bg-slate-600 shadow-inner";
+                if (pastedContent) {
+                    renderContent(pastedContent);
+                } else {
+                    renderEmptyState();
+                }
+            }
+        });
+
+        // 3. KEYBOARD SHORTCUTS
+        inputArea.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                const val = inputArea.value.trim();
+                if (['#', '##', '###'].includes(val)) {
+                    e.preventDefault();
+                    triggerWinner(val.length);
+                    inputArea.value = ''; 
+                    statusDot.className = "w-2.5 h-2.5 rounded-full bg-slate-600 shadow-inner";
+                }
+            }
+        });
+
+        // Clear Canvas Action
+        function resetCanvas() {
+            pastedContent = "";
+            renderEmptyState();
+            inputArea.value = '';
+            inputArea.placeholder = "Paste anything or type commands (#, ##) here...";
+            statusDot.className = "w-2.5 h-2.5 rounded-full bg-slate-600 shadow-inner";
+            inputArea.focus();
+        }
+
+        // Updated for Dark Theme Empty State
+        function renderEmptyState() {
+             renderArea.innerHTML = `
+                <div class="flex-1 flex flex-col items-center justify-center text-slate-500 gap-4 transition-opacity duration-500">
+                    <div class="p-6 rounded-full bg-white/5 border border-white/5 mb-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 opacity-50" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                        </svg>
+                    </div>
+                    <p class="font-medium text-slate-400">Waiting for clipboard paste...</p>
+                    <p class="text-xs text-slate-600 font-mono">Press Ctrl+V or Cmd+V anywhere</p>
+                </div>`;
+        }
+
+        // The Smart Rendering Logic (Updated for Dark Professional Theme)
+        function renderContent(text) {
+            if (!text.trim()) return;
+
+            let html = '';
+            
+            const codeBlocks = [];
+            let processedText = text.replace(/```([\s\S]*?)```/g, (match, code) => {
+                codeBlocks.push(code.trim());
+                return `__CODE_BLOCK_${codeBlocks.length - 1}__`;
+            });
+
+            const lines = processedText.split('\n');
+            let isFirstLine = true; 
+
+            lines.forEach((line, index) => {
+                line = line.trim();
+                
+                if (!line) {
+                    html += '<div class="h-3"></div>'; 
+                    return;
+                }
+
+                if (line.includes('__CODE_BLOCK_')) {
+                    const blockIndex = parseInt(line.match(/__CODE_BLOCK_(\d+)__/)[1]);
+                    html += formatCode(codeBlocks[blockIndex]);
+                    isFirstLine = false; 
+                    return;
+                }
+
+                // Professional Dark H1 Heading
+                if (isFirstLine) {
+                    html += `<h1 class="text-3xl md:text-4xl font-extrabold text-white leading-tight mb-8 pb-5 border-b border-white/10 animate-fade-in-up tracking-tight">${line}</h1>`;
+                    isFirstLine = false;
+                    return;
+                }
+
+                // Professional Dark MCQ Cards
+                const optionMatch = line.match(/^([a-zA-Z][\).]|[0-9]+[\).]|[-*])\s+(.*)/);
+                
+                if (optionMatch) {
+                    const bullet = optionMatch[1].replace(/[-*]/, '•'); 
+                    const content = optionMatch[2];
+                    
+                    html += `
+                        <div class="group flex items-center gap-4 p-4 rounded-xl bg-[#1e1e22]/60 border border-white/5 hover:border-indigo-500/40 hover:bg-[#232328] hover:-translate-y-0.5 transition-all duration-300 cursor-pointer animate-fade-in-up shadow-sm" style="animation-delay: ${index * 40}ms">
+                            <div class="flex-shrink-0 w-10 h-10 rounded-full bg-white/5 text-slate-400 font-bold flex items-center justify-center group-hover:bg-indigo-500 group-hover:text-white transition-colors duration-300 border border-white/5">
+                                ${bullet.replace(/[\).]/, '')}
+                            </div>
+                            <span class="text-[17px] font-medium text-slate-300 group-hover:text-white transition-colors">${content}</span>
+                        </div>
+                    `;
+                } else {
+                    // Dark Paragraph Text
+                    html += `<p class="text-slate-400 text-[17px] leading-relaxed mb-3">${line}</p>`;
+                }
+            });
+
+            renderArea.innerHTML = html;
+        }
+
+        // Professional Dark Code Block
+        function formatCode(code) {
+            let formatted = code
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/\b(const|let|var|function|return|if|else|for|while|class|import|from)\b/g, '<span class="code-syntax-keyword">$1</span>')
+                .replace(/\b(\d+)\b/g, '<span class="code-syntax-number">$1</span>')
+                .replace(/(['"`].*?['"`])/g, '<span class="code-syntax-string">$1</span>')
+                .replace(/(\/\/.*)/g, '<span class="code-syntax-comment">$1</span>');
+
+            return `
+                <div class="my-5 rounded-xl overflow-hidden shadow-2xl border border-white/10 animate-pop bg-[#0d0d10]">
+                    <div class="bg-white/5 px-4 py-2.5 flex items-center gap-2 border-b border-white/5">
+                        <div class="w-2.5 h-2.5 rounded-full bg-slate-600"></div>
+                        <div class="w-2.5 h-2.5 rounded-full bg-slate-600"></div>
+                        <div class="w-2.5 h-2.5 rounded-full bg-slate-600"></div>
+                        <span class="ml-2 text-[11px] text-slate-500 font-mono tracking-wider">SOURCE_CODE</span>
+                    </div>
+                    <pre class="p-5 overflow-x-auto text-[13px] md:text-sm font-mono leading-relaxed text-[#f8f8f2]"><code>${formatted}</code></pre>
+                </div>
+            `;
+        }
+
+        // Winner Animation Logic
+        function triggerWinner(rank) {
+            let rankText = "1ST";
+            let color = "#38bdf8"; // Light Blue
+            
+            if (rank === 2) { rankText = "2ND"; color = "#818cf8"; } // Indigo
+            if (rank === 3) { rankText = "3RD"; color = "#c084fc"; } // Purple
+
+            winnerRank.innerText = rankText;
+            winnerTextContainer.style.setProperty('--glow-color', color);
+            
+            winnerOverlay.classList.remove('hidden');
+            
+            requestAnimationFrame(() => {
+                winnerTextContainer.style.transform = "scale(1)";
+                winnerTextContainer.style.opacity = "1";
+            });
+
+            createConfetti(color);
+        }
+
+        function closeWinner() {
+            winnerTextContainer.style.transform = "scale(0.9)";
+            winnerTextContainer.style.opacity = "0";
+            setTimeout(() => {
+                winnerOverlay.classList.add('hidden');
+                document.getElementById('confettiContainer').innerHTML = '';
+            }, 500);
+            inputArea.focus();
+        }
+
+        function createConfetti(colorHex) {
+            const container = document.getElementById('confettiContainer');
+            const count = 60;
+            const colors = [colorHex, '#e2e8f0', '#94a3b8'];
+
+            for (let i = 0; i < count; i++) {
+                const conf = document.createElement('div');
+                conf.className = 'confetti';
+                conf.style.left = Math.random() * 100 + 'vw';
+                conf.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                conf.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                conf.style.opacity = Math.random() * 0.8 + 0.2;
+                container.appendChild(conf);
+            }
+        }
+
+        renderEmptyState();
+
+    </script>
+</body>
+</html>
