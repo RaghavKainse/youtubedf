@@ -17,14 +17,14 @@
                     },
                     colors: {
                         studio: {
-                            bg: '#fcfcfd',
-                            panel: 'rgba(255, 255, 255, 0.75)',
-                            card: 'rgba(255, 255, 255, 0.9)',
-                            border: 'rgba(79, 70, 229, 0.08)'
+                            bg: '#f8fafc',
+                            panel: 'rgba(255, 255, 255, 0.8)',
+                            card: 'rgba(255, 255, 255, 0.95)',
+                            border: 'rgba(148, 163, 184, 0.1)'
                         },
                         brand: {
-                            primary: '#4f46e5',
-                            accent: '#f43f5e',
+                            primary: '#6366f1',
+                            accent: '#38bdf8',
                             success: '#10b981'
                         }
                     },
@@ -32,20 +32,17 @@
                         'fade-in': 'fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards',
                         'slide-up': 'slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards',
                         'glow-pulse': 'glowPulse 3s infinite alternate',
+                        'float': 'float 8s ease-in-out infinite',
+                        'bounce-in': 'bounceIn 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards',
+                        'reveal-up': 'revealUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards'
                     },
                     keyframes: {
-                        fadeIn: {
-                            '0%': { opacity: '0' },
-                            '100%': { opacity: '1' },
-                        },
-                        slideUp: {
-                            '0%': { opacity: '0', transform: 'translateY(15px)' },
-                            '100%': { opacity: '1', transform: 'translateY(0)' },
-                        },
-                        glowPulse: {
-                            '0%': { opacity: '0.3', transform: 'scale(1)' },
-                            '100%': { opacity: '0.6', transform: 'scale(1.05)' },
-                        }
+                        fadeIn: { '0%': { opacity: '0' }, '100%': { opacity: '1' } },
+                        slideUp: { '0%': { opacity: '0', transform: 'translateY(15px)' }, '100%': { opacity: '1', transform: 'translateY(0)' } },
+                        glowPulse: { '0%': { opacity: '0.3', transform: 'scale(1)' }, '100%': { opacity: '0.6', transform: 'scale(1.05)' } },
+                        float: { '0%, 100%': { transform: 'translateY(0px)' }, '50%': { transform: 'translateY(-20px)' } },
+                        bounceIn: { '0%': { opacity: '0', transform: 'scale(0.3)' }, '100%': { opacity: '1', transform: 'scale(1)' } },
+                        revealUp: { '0%': { opacity: '0', transform: 'translateY(40px)' }, '100%': { opacity: '1', transform: 'translateY(0)' } }
                     }
                 }
             }
@@ -53,88 +50,88 @@
     </script>
 
     <style>
-        /* Premium Scrollbar */
-        ::-webkit-scrollbar { width: 5px; height: 5px; }
+        /* Comfort Scrollbar */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
         ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: rgba(79, 70, 229, 0.1); border-radius: 10px; }
-        ::-webkit-scrollbar-thumb:hover { background: rgba(79, 70, 229, 0.2); }
+        ::-webkit-scrollbar-thumb { background: rgba(148, 163, 184, 0.2); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(99, 102, 241, 0.2); }
 
-        /* Code Highlighting Core Classes (Xcode Light Style) */
-        .code-keyword { color: #4f46e5; font-weight: 700; }
-        .code-function { color: #0891b2; font-weight: 500; }
-        .code-string { color: #f43f5e; }
+        /* Code Highlighting (Muted Professional Style) */
+        .code-keyword { color: #6366f1; font-weight: 700; }
+        .code-function { color: #0d9488; font-weight: 500; }
+        .code-string { color: #0891b2; }
         .code-number { color: #8b5cf6; }
         .code-comment { color: #94a3b8; font-style: italic; }
-        .code-operator { color: #0f172a; }
-        .code-class { color: #92400e; }
+        .code-operator { color: #334155; }
+        .code-class { color: #7c3aed; }
 
-        /* Smooth Glass UI (Studio Luxe) */
+        /* Nordic Glass UI */
         .glass-box {
-            background: rgba(255, 255, 255, 0.75);
-            backdrop-filter: blur(40px);
-            -webkit-backdrop-filter: blur(40px);
-            border: 1px solid rgba(255, 255, 255, 0.8);
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            border: 1px solid rgba(255, 255, 255, 1);
             box-shadow: 
-                0 4px 6px -1px rgba(79, 70, 229, 0.03), 
-                0 2px 4px -1px rgba(79, 70, 229, 0.02),
-                0 20px 25px -5px rgba(79, 70, 229, 0.05);
+                0 4px 6px -1px rgba(0, 0, 0, 0.02), 
+                0 10px 15px -3px rgba(0, 0, 0, 0.03),
+                0 20px 25px -5px rgba(0, 0, 0, 0.04);
         }
 
-        /* Question Typography Glow */
+        /* Question Typography Focus */
         .question-glow {
-            text-shadow: 0 0 40px rgba(79, 70, 229, 0.08);
+            text-shadow: 0 0 40px rgba(99, 102, 241, 0.05);
         }
 
-        /* Winner Overlay Effects */
+        /* Winner Overlay Effects (Softened) */
         .winner-backdrop {
-            background: radial-gradient(circle at center, rgba(255, 255, 255, 0.95) 0%, #fcfcfd 100%);
+            background: radial-gradient(circle at center, rgba(255, 255, 255, 0.98) 0%, #f1f5f9 100%);
         }
         .text-glow-fx {
             text-shadow: 0 0 30px var(--glow-color), 0 0 60px var(--glow-color);
         }
         .particle {
             position: absolute; width: 6px; height: 12px; background: #fff;
-            animation: fall linear forwards; border-radius: 3px;
+            animation: fall linear forwards; border-radius: 2px;
         }
         @keyframes fall { to { transform: translateY(100vh) rotate(720deg); } }
     </style>
 </head>
-<body class="bg-studio-bg text-slate-900 min-h-screen selection:bg-brand-primary/10 selection:text-brand-primary font-sans overflow-hidden">
+<body class="bg-studio-bg text-slate-700 min-h-screen selection:bg-brand-primary/10 selection:text-brand-primary font-sans overflow-hidden">
 
-    <!-- Ambient Mesh Gradient -->
-    <div class="fixed inset-0 z-0 pointer-events-none overflow-hidden bg-[#fcfcfd]">
-        <div class="absolute top-[-10%] left-[-10%] w-[70vw] h-[70vw] rounded-full bg-indigo-500/5 blur-[140px] animate-glow-pulse"></div>
-        <div class="absolute bottom-[-10%] right-[-10%] w-[60vw] h-[60vw] rounded-full bg-rose-500/5 blur-[140px] animate-glow-pulse" style="animation-delay: -3s;"></div>
-        <div class="absolute top-[20%] right-[10%] w-[40vw] h-[40vw] rounded-full bg-blue-500/5 blur-[120px] animate-glow-pulse" style="animation-delay: -1.5s;"></div>
+    <!-- Ambient Nordic Mesh -->
+    <div class="fixed inset-0 z-0 pointer-events-none overflow-hidden bg-[#f8fafc]">
+        <div class="absolute top-[-20%] left-[-10%] w-[80vw] h-[80vw] rounded-full bg-indigo-50/50 blur-[120px] animate-glow-pulse"></div>
+        <div class="absolute bottom-[-10%] right-[-10%] w-[60vw] h-[60vw] rounded-full bg-sky-50/50 blur-[120px] animate-glow-pulse" style="animation-delay: -3.5s;"></div>
     </div>
 
     <!-- Main App Container -->
     <div class="relative z-10 flex flex-col h-screen max-w-6xl mx-auto px-4 py-4 gap-4">
         
         <!-- Studio Luxe Header -->
-        <header class="flex items-center justify-between flex-none pb-2 border-b border-indigo-500/10">
+        <!-- Soft Nordic Header -->
+        <header class="flex items-center justify-between flex-none pb-2 border-b border-slate-200">
             <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-2xl bg-white border border-indigo-100 flex items-center justify-center shadow-[0_4px_12px_rgba(79,70,229,0.08)]">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-brand-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <div class="w-10 h-10 rounded-2xl bg-white border border-slate-200 flex items-center justify-center shadow-sm">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
                     </svg>
                 </div>
                 <div>
-                    <h1 class="text-lg md:text-xl font-bold tracking-tight text-slate-900 flex items-center gap-2">
-                        Real Interview <span class="bg-gradient-to-r from-indigo-500 to-rose-500 bg-clip-text text-transparent font-black tracking-tighter">Experience</span>
+                    <h1 class="text-lg md:text-xl font-bold tracking-tight text-slate-700 flex items-center gap-2">
+                        Real Interview <span class="bg-gradient-to-r from-indigo-500 to-sky-500 bg-clip-text text-transparent font-black tracking-tighter">Experience</span>
                     </h1>
                 </div>
             </div>
 
             <!-- Action Buttons -->
             <div class="flex items-center gap-3">
-                <div class="hidden sm:flex items-center bg-indigo-50/50 rounded-xl p-0.5 gap-0.5 border border-indigo-100/50">
-                    <button onclick="triggerWinner(1)" class="px-2.5 py-1 rounded-lg text-[9px] font-bold text-indigo-400 hover:bg-white hover:text-brand-primary hover:shadow-sm transition-all uppercase tracking-tighter">1st Rank</button>
-                    <button onclick="triggerWinner(2)" class="px-2.5 py-1 rounded-lg text-[9px] font-bold text-indigo-400 hover:bg-white hover:text-brand-primary hover:shadow-sm transition-all uppercase tracking-tighter">2nd Rank</button>
-                    <button onclick="triggerWinner(3)" class="px-2.5 py-1 rounded-lg text-[9px] font-bold text-indigo-400 hover:bg-white hover:text-brand-primary hover:shadow-sm transition-all uppercase tracking-tighter">3rd Rank</button>
+                <div class="hidden sm:flex items-center bg-slate-100 rounded-xl p-0.5 gap-0.5 border border-slate-200">
+                    <button onclick="triggerWinner(1)" class="px-3 py-1.5 rounded-lg text-[9px] font-bold text-slate-500 hover:bg-white hover:text-brand-primary hover:shadow-sm transition-all uppercase tracking-tighter">Rank 1</button>
+                    <button onclick="triggerWinner(2)" class="px-3 py-1.5 rounded-lg text-[9px] font-bold text-slate-500 hover:bg-white hover:text-brand-primary hover:shadow-sm transition-all uppercase tracking-tighter">Rank 2</button>
+                    <button onclick="triggerWinner(3)" class="px-3 py-1.5 rounded-lg text-[9px] font-bold text-slate-500 hover:bg-white hover:text-brand-primary hover:shadow-sm transition-all uppercase tracking-tighter">Rank 3</button>
                 </div>
                 
-                <button onclick="resetCanvas()" class="text-[10px] font-bold text-rose-500 hover:bg-rose-50 bg-rose-500/5 px-3 py-2 rounded-xl transition-all flex items-center gap-2 border border-rose-100/50">
+                <button onclick="resetCanvas()" class="text-[10px] font-bold text-slate-400 hover:bg-white hover:text-slate-800 bg-slate-100 px-4 py-2 rounded-xl transition-all flex items-center gap-2 border border-slate-200 shadow-sm">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                     </svg>
@@ -143,21 +140,21 @@
             </div>
         </header>
 
-        <!-- Luxe Input Bar -->
+        <!-- Nordic Input Bar -->
         <div class="flex-none z-20">
             <div class="glass-box rounded-2xl p-1.5 transition-all duration-700">
-                <div class="bg-indigo-50/30 rounded-[14px] px-5 flex items-center gap-4 h-12 border border-indigo-100/50">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-indigo-600/40" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <div class="bg-indigo-50/20 rounded-[14px] px-5 flex items-center gap-4 h-12 border border-slate-200/50">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                     </svg>
                     <input 
                         type="text"
                         id="inputArea" 
                         autocomplete="off"
-                        class="w-full bg-transparent border-none outline-none text-slate-900 placeholder-indigo-300 font-medium text-base h-full"
-                        placeholder="Share your interview experience..."
+                        class="w-full bg-transparent border-none outline-none text-slate-700 placeholder-slate-300 font-medium text-base h-full"
+                        placeholder="Type to share your experience..."
                     />
-                    <div id="statusDot" class="w-2 h-2 rounded-full bg-indigo-200 transition-all duration-500"></div>
+                    <div id="statusDot" class="w-2 h-2 rounded-full bg-slate-200 transition-all duration-500"></div>
                 </div>
             </div>
         </div>
@@ -189,18 +186,26 @@
         </div>
     </div>
 
-    <!-- Winner Celebration Overlay -->
-    <div id="winnerOverlay" class="fixed inset-0 z-50 hidden flex flex-col items-center justify-center winner-backdrop text-white overflow-hidden backdrop-blur-xl">
+    <!-- Winner Celebration Overlay (Premium Reveal) -->
+    <div id="winnerOverlay" class="fixed inset-0 z-50 hidden flex flex-col items-center justify-center winner-backdrop text-slate-800 overflow-hidden backdrop-blur-3xl transition-all duration-700">
+        <!-- Floating Depth Elements -->
+        <div class="absolute top-[10%] left-[15%] w-64 h-64 rounded-full bg-indigo-200/20 blur-[100px] animate-float"></div>
+        <div class="absolute bottom-[10%] right-[15%] w-72 h-72 rounded-full bg-sky-200/20 blur-[110px] animate-float" style="animation-delay: -3s;"></div>
         <div id="confettiContainer" class="absolute inset-0 pointer-events-none"></div>
-        <div class="relative z-10 text-center opacity-0 scale-90 transition-all duration-500 ease-out" id="winnerTextContainer">
-            <span class="inline-block px-4 py-1 rounded-full bg-white/10 text-[10px] font-bold tracking-[0.3em] text-gray-300 mb-6 uppercase border border-white/10">Result Announcement</span>
-            <h2 id="winnerRank" class="text-8xl md:text-9xl font-black mb-2 tracking-tighter text-white">1ST</h2>
-            <div class="h-1 w-24 mx-auto bg-white/20 rounded-full mb-6"></div>
-            <h3 id="winnerSubtext" class="text-4xl md:text-5xl font-extrabold uppercase tracking-[0.2em] text-glow-fx" style="--glow-color: #3b82f6;">Winner</h3>
+
+        <div class="relative z-10 text-center" id="winnerTextContainer">
+            <div class="overflow-hidden mb-4">
+                <span id="winnerBadge"></span>
+            </div>
+            
+            <h2 id="winnerRank" class="text-8xl md:text-9xl font-bold mb-4 tracking-tighter opacity-0 scale-50 transition-all duration-500">1ST</h2>
+            
+            <div id="winnerDivider" class="h-1 w-0 mx-auto bg-slate-200 rounded-full mb-8 transition-all duration-700 ease-out"></div>
+            
+            <div class="overflow-hidden">
+                <h3 id="winnerSubtext" class="text-4xl md:text-6xl font-black uppercase tracking-[0.2em] text-glow-fx opacity-0 translate-y-12 transition-all duration-700 text-slate-800" style="--glow-color: transparent;">Winner</h3>
+            </div>
         </div>
-        <button onclick="closeWinner()" class="absolute bottom-12 text-slate-400 hover:text-slate-800 text-[10px] font-black uppercase tracking-[0.3em] border border-black/5 px-10 py-4 rounded-3xl bg-white/50 hover:bg-white transition-all duration-300 shadow-sm backdrop-blur-md">
-            Return to Session
-        </button>
     </div>
 
     <script>
@@ -371,14 +376,14 @@
                         
                         if (questionLines.length > 0) {
                             let combinedQ = questionLines.join('<br>');
-                            html += `<h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-slate-800 leading-[1.1] animate-slide-up tracking-tighter mb-5">${combinedQ}</h1>`;
+                            html += `<h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-slate-700 leading-[1.15] animate-slide-up tracking-tighter mb-6">${combinedQ}</h1>`;
                         }
                         // Continue mat likhna, taaki ye line normal process ho jaye!
                     } else {
                         // Formatting
                         let formattedLine = line
                             .replace(/\*\*(.*?)\*\*/g, '<span class="text-brand-accent font-bold">$1</span>')
-                            .replace(/\`(.*?)\`/g, '<code class="bg-indigo-50 text-indigo-600 px-1.5 py-0.5 rounded text-sm font-mono border border-indigo-100">$1</code>');
+                            .replace(/\`(.*?)\`/g, '<code class="bg-indigo-50/50 text-indigo-600 px-1.5 py-0.5 rounded text-sm font-mono border border-indigo-100/30">$1</code>');
                         
                         questionLines.push(formattedLine);
                         continue; // Question me add ho gaya, next line pe jao
@@ -405,25 +410,25 @@
 
                 let fLine = line
                     .replace(/\*\*(.*?)\*\*/g, '<span class="text-brand-accent font-bold">$1</span>')
-                    .replace(/\`(.*?)\`/g, '<code class="bg-indigo-50 text-indigo-600 px-1.5 py-0.5 rounded text-sm font-mono border border-indigo-100">$1</code>');
+                    .replace(/\`(.*?)\`/g, '<code class="bg-indigo-50/50 text-indigo-600 px-1.5 py-0.5 rounded text-sm font-mono border border-indigo-100/30">$1</code>');
 
-                // Luxe Dialogues
+                // Soft Dialogues
                 const dialogueMatch = line.match(/^(Interviewer|Candidate|HR|You|Me):\s*(.*)/i);
                 if (dialogueMatch) {
                     const speaker = dialogueMatch[1];
-                    const msg = dialogueMatch[2].replace(/\*\*(.*?)\*\*/g, '<span class="text-slate-900 font-bold">$1</span>').replace(/\`(.*?)\`/g, '<code class="bg-indigo-50 text-indigo-600 px-1.5 py-0.5 rounded text-sm font-mono border border-indigo-100">$1</code>');
+                    const msg = dialogueMatch[2].replace(/\*\*(.*?)\*\*/g, '<span class="text-slate-800 font-bold">$1</span>').replace(/\`(.*?)\`/g, '<code class="bg-indigo-50/50 text-indigo-600 px-1.5 py-0.5 rounded text-sm font-mono border border-indigo-100/30">$1</code>');
                     const isUser = ['candidate', 'me', 'you'].includes(speaker.toLowerCase());
                     const align = isUser ? 'justify-end' : 'justify-start';
-                    const bubble = isUser ? 'bg-brand-primary text-white shadow-[0_8px_16px_rgba(79,70,229,0.12)]' : 'bg-white border border-indigo-50 text-slate-700 shadow-sm';
-                    const badge = isUser ? 'hidden' : 'bg-indigo-50 text-brand-primary border border-indigo-100';
+                    const bubble = isUser ? 'bg-indigo-50/70 text-indigo-900 border border-indigo-100 shadow-sm' : 'bg-white border border-slate-100 text-slate-600 shadow-sm';
+                    const badge = isUser ? 'hidden' : 'bg-slate-50 text-slate-400 border border-slate-200';
 
                     html += `
-                        <div class="flex ${align} w-full my-2 animate-slide-up" style="animation-delay: ${i * 10}ms">
+                        <div class="flex ${align} w-full my-2.5 animate-slide-up" style="animation-delay: ${i * 10}ms">
                             <div class="flex gap-4 max-w-[90%] ${isUser ? 'flex-row-reverse' : 'flex-row'}">
-                                ${!isUser ? `<div class="w-10 h-10 rounded-2xl ${badge} flex items-center justify-center text-[10px] font-bold shrink-0 shadow-sm">${speaker[0].toUpperCase()}</div>` : ''}
+                                ${!isUser ? `<div class="w-10 h-10 rounded-2xl ${badge} flex items-center justify-center text-[10px] font-bold shrink-0">${speaker[0].toUpperCase()}</div>` : ''}
                                 <div class="flex flex-col ${isUser ? 'items-end' : 'items-start'}">
-                                    <span class="text-[9px] font-bold tracking-[0.2em] text-indigo-300 uppercase mb-1 px-3">${speaker}</span>
-                                    <div class="px-7 py-3.5 rounded-[26px] ${bubble} text-[17px] font-medium leading-[1.6] ${isUser ? 'rounded-tr-none' : 'rounded-tl-none'}">
+                                    <span class="text-[9px] font-bold tracking-[0.2em] text-slate-400 uppercase mb-1 px-3">${speaker}</span>
+                                    <div class="px-7 py-4 rounded-[26px] ${bubble} text-[17px] font-medium leading-relaxed ${isUser ? 'rounded-tr-none' : 'rounded-tl-none'}">
                                         ${msg}
                                     </div>
                                 </div>
@@ -436,7 +441,7 @@
                 // Subheadings
                 const subHeadMatch = line.match(/^##\s+(.*)/);
                 if (subHeadMatch) {
-                    html += `<h2 class="text-lg font-black text-slate-900 mt-6 mb-3 animate-slide-up flex items-center gap-2 uppercase tracking-tighter"><span class="w-1 h-5 bg-brand-primary rounded-full"></span>${subHeadMatch[1].replace(/\*\*(.*?)\*\*/g, '<span class="text-brand-accent">$1</span>')}</h2>`;
+                    html += `<h2 class="text-lg font-bold text-slate-700 mt-6 mb-3 animate-slide-up flex items-center gap-2 uppercase tracking-tighter"><span class="w-1 h-5 bg-brand-primary/50 rounded-full"></span>${subHeadMatch[1].replace(/\*\*(.*?)\*\*/g, '<span class="text-brand-accent">$1</span>')}</h2>`;
                     continue;
                 }
 
@@ -451,31 +456,31 @@
                     continue;
                 }
 
-                // Luxe MCQ Options
+                // Soft MCQ Options
                 const listMatch = line.match(isOptionRegex);
                 if (listMatch) {
                     const bullet = listMatch[1].replace(/[-*]/, '○'); 
-                    const content = listMatch[2].replace(/\*\*(.*?)\*\*/g, '<span class="text-slate-900 font-bold">$1</span>').replace(/\`(.*?)\`/g, '<code class="bg-indigo-50 text-indigo-600 px-1.5 py-0.5 rounded text-sm font-mono">$1</code>');
+                    const content = listMatch[2].replace(/\*\*(.*?)\*\*/g, '<span class="text-slate-800 font-bold">$1</span>').replace(/\`(.*?)\`/g, '<code class="bg-indigo-50/50 text-indigo-600 px-1.5 py-0.5 rounded text-sm font-mono border border-indigo-100/30">$1</code>');
                     
                     html += `
-                        <div class="flex items-start gap-5 p-4 rounded-[22px] bg-white border border-indigo-50 hover:border-brand-primary/40 hover:shadow-[0_12px_24px_rgba(79,70,229,0.06)] hover:-translate-y-0.5 transition-all cursor-pointer animate-slide-up group shadow-sm" style="animation-delay: ${i * 10}ms">
-                            <div class="flex-shrink-0 w-11 h-11 rounded-2xl bg-indigo-50 text-indigo-300 font-bold flex items-center justify-center group-hover:bg-brand-primary group-hover:text-white transition-all text-xs border border-indigo-100/50">
+                        <div class="flex items-start gap-5 p-4 rounded-[22px] bg-white border border-slate-100 hover:border-brand-primary/30 hover:bg-slate-50 transition-all cursor-pointer animate-slide-up group shadow-sm" style="animation-delay: ${i * 10}ms">
+                            <div class="flex-shrink-0 w-11 h-11 rounded-2xl bg-slate-50 text-slate-400 font-bold flex items-center justify-center group-hover:bg-brand-primary group-hover:text-white transition-all text-xs border border-slate-200">
                                 ${bullet.replace(/[\).]/, '')}
                             </div>
-                            <span class="text-[18px] font-bold text-slate-700 group-hover:text-indigo-600 pt-2.5 leading-[1.2] tracking-tight">${content}</span>
+                            <span class="text-[18px] font-bold text-slate-600 group-hover:text-slate-800 pt-2.5 leading-[1.3] tracking-tight">${content}</span>
                         </div>
                     `;
                     continue;
                 } 
 
                 // Standard Paragraph
-                html += `<p class="text-gray-400 text-[15px] leading-relaxed mb-2 animate-slide-up" style="animation-delay: ${i * 10}ms">${fLine}</p>`;
+                html += `<p class="text-slate-600 text-[16px] leading-relaxed mb-1.5 animate-slide-up" style="animation-delay: ${i * 10}ms">${fLine}</p>`;
             }
 
             // EDGE CASE: If completely question only
             if (isExtractingQuestion && questionLines.length > 0) {
                 let combinedQ = questionLines.join('<br>');
-                html += `<h1 class="text-2xl md:text-3xl lg:text-4xl font-extrabold text-white leading-snug mb-8 pb-5 border-b border-white/10 animate-slide-up tracking-tight question-glow">${combinedQ}</h1>`;
+                html += `<h1 class="text-3xl md:text-4xl font-bold text-slate-700 leading-snug mb-8 pb-5 border-b border-slate-100 animate-slide-up tracking-tight question-glow">${combinedQ}</h1>`;
             }
 
             renderArea.innerHTML = html;
@@ -510,8 +515,8 @@
             const rawBase64 = btoa(unescape(encodeURIComponent(code)));
 
             return `
-                <div class="my-4 rounded-[22px] overflow-hidden border border-black/5 bg-[#fbfbfd] animate-slide-up shadow-sm" style="animation-delay: ${index * 10}ms">
-                    <div class="p-6 md:p-8 overflow-x-auto text-[16px] leading-[1.6] font-mono text-slate-800">
+                <div class="my-4 rounded-3xl overflow-hidden bg-white/40 animate-slide-up shadow-sm" style="animation-delay: ${index * 10}ms">
+                    <div class="p-3 md:p-4 overflow-x-auto text-[19px] leading-relaxed font-mono text-slate-600">
                         <div class="table border-collapse w-full">
                             ${numberedLines}
                         </div>
@@ -552,68 +557,97 @@
         // ==========================================
         function triggerWinner(rank, name = "") {
             const overlay = document.getElementById('winnerOverlay');
-            const container = document.getElementById('winnerTextContainer');
+            const badge = document.getElementById('winnerBadge');
             const rankLabel = document.getElementById('winnerRank');
+            const divider = document.getElementById('winnerDivider');
             const subtextLabel = document.getElementById('winnerSubtext');
             
-            let rankTxt = "1ST", color = "#4f46e5", bg = "rgba(79, 70, 229, 0.05)"; 
-            if (rank === 2) { rankTxt = "2ND"; color = "#f43f5e"; bg = "rgba(244, 63, 94, 0.05)"; } 
-            if (rank === 3) { rankTxt = "3RD"; color = "#10b981"; bg = "rgba(16, 185, 129, 0.05)"; } 
+            // Reset states
+            badge.className = "inline-block px-5 py-1.5 rounded-full bg-slate-100 text-[10px] font-bold tracking-[0.4em] text-slate-400 uppercase border border-slate-200/50 opacity-0 transform translate-y-4";
+            rankLabel.className = "text-8xl md:text-9xl font-bold mb-4 tracking-tighter opacity-0 scale-50 transition-all duration-500";
+            divider.style.width = "0";
+            subtextLabel.className = "text-4xl md:text-6xl font-black uppercase tracking-[0.2em] text-glow-fx opacity-0 translate-y-12 transition-all duration-700";
+
+            let rankTxt = "1ST", color = "#6366f1", bg = "rgba(99, 102, 241, 0.08)"; 
+            if (rank === 2) { rankTxt = "2ND"; color = "#0ea5e9"; bg = "rgba(14, 165, 233, 0.08)"; } 
+            if (rank === 3) { rankTxt = "3RD"; color = "#10b981"; bg = "rgba(16, 185, 129, 0.08)"; } 
 
             if (name) {
                 rankLabel.innerText = name.toUpperCase();
-                if (name.length > 10) rankLabel.className = "text-5xl md:text-7xl font-bold mb-2 tracking-tighter text-glow-fx";
-                else if (name.length > 6) rankLabel.className = "text-7xl md:text-8xl font-bold mb-2 tracking-tighter text-glow-fx";
-                else rankLabel.className = "text-8xl md:text-9xl font-bold mb-2 tracking-tighter text-glow-fx";
-                
                 subtextLabel.innerText = rankTxt + " WINNER";
             } else {
                 rankLabel.innerText = rankTxt;
-                rankLabel.className = "text-8xl md:text-9xl font-bold mb-2 tracking-tighter text-glow-fx";
                 subtextLabel.innerText = "WINNER";
             }
 
             rankLabel.style.color = color;
-            container.style.setProperty('--glow-color', color + '33');
+            subtextLabel.style.setProperty('--glow-color', color + '22');
             overlay.style.background = `radial-gradient(circle at center, rgba(255, 255, 255, 0.98) 0%, ${bg} 100%)`;
             
             overlay.classList.remove('hidden');
-            
-            requestAnimationFrame(() => {
-                container.style.transform = "scale(1)";
-                container.style.opacity = "1";
-            });
 
-            createParticles(color);
+            // Staggered Reveal Sequence
+            setTimeout(() => { badge.classList.add('animate-reveal-up'); }, 100);
+            setTimeout(() => { 
+                rankLabel.classList.remove('opacity-0', 'scale-50');
+                rankLabel.classList.add('animate-bounce-in');
+                createBurst(color); // Explosion!
+            }, 600);
+            setTimeout(() => { divider.style.width = "120px"; }, 1100);
+            setTimeout(() => { subtextLabel.classList.add('animate-reveal-up'); }, 1400);
+
+            // Auto-close after 5.5 seconds
+            setTimeout(closeWinner, 5500);
         }
 
         function closeWinner() {
             const overlay = document.getElementById('winnerOverlay');
-            const container = document.getElementById('winnerTextContainer');
-            
-            container.style.transform = "scale(0.95)";
-            container.style.opacity = "0";
+            overlay.style.opacity = "0";
             setTimeout(() => {
                 overlay.classList.add('hidden');
+                overlay.style.opacity = "1";
                 document.getElementById('confettiContainer').innerHTML = '';
-            }, 300);
+            }, 700);
             inputArea.focus();
         }
 
-        function createParticles(color) {
+        function createBurst(color) {
             const container = document.getElementById('confettiContainer');
-            container.innerHTML = ''; // clear old
-            for (let i = 0; i < 80; i++) {
+            const count = 150;
+            const angleStep = (Math.PI * 2) / count;
+
+            for (let i = 0; i < count; i++) {
                 const p = document.createElement('div');
                 p.className = 'particle';
-                p.style.left = Math.random() * 100 + 'vw';
-                p.style.animationDuration = (Math.random() * 2 + 2) + 's';
-                p.style.background = Math.random() > 0.5 ? color : '#0071e3';
-                p.style.opacity = Math.random() * 0.6 + 0.4;
-                p.style.width = '8px';
-                p.style.height = '8px';
-                p.style.borderRadius = '2px';
+                p.style.left = '50vw';
+                p.style.top = '50vh';
+                
+                const velocity = Math.random() * 15 + 10;
+                const angle = Math.random() * Math.PI * 2;
+                const vx = Math.cos(angle) * velocity;
+                const vy = Math.sin(angle) * velocity;
+                
+                p.style.background = Math.random() > 0.5 ? color : (Math.random() > 0.5 ? '#38bdf8' : '#e2e8f0');
+                p.style.boxShadow = `0 0 10px ${color}44`;
+
                 container.appendChild(p);
+
+                let posX = 50, posY = 50;
+                let curVx = vx, curVy = vy;
+                let gravity = 0.4;
+                
+                function update() {
+                    posX += curVx * 0.2;
+                    posY += curVy * 0.2;
+                    curVy += gravity;
+                    
+                    p.style.left = posX + 'vw';
+                    p.style.top = posY + 'vh';
+                    p.style.opacity = Math.max(0, p.style.opacity - 0.01);
+                    
+                    if (posY < 110) requestAnimationFrame(update);
+                }
+                requestAnimationFrame(update);
             }
         }
     </script>
