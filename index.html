@@ -358,7 +358,7 @@
                     if (!line) {
                         isExtractingQuestion = false;
                         let combinedQ = questionLines.join('<br>');
-                        html += `<h1 class="text-2xl md:text-3xl font-extrabold text-slate-800 leading-tight animate-slide-up tracking-tight mb-4">${combinedQ}</h1>`;
+                        html += `<h1 contenteditable="true" spellcheck="false" class="text-2xl md:text-3xl font-extrabold text-slate-800 leading-tight animate-slide-up tracking-tight mb-4 px-2 -mx-2">${combinedQ}</h1>`;
                         continue;
                     }
 
@@ -376,7 +376,7 @@
                         
                         if (questionLines.length > 0) {
                             let combinedQ = questionLines.join('<br>');
-                            html += `<h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-slate-700 leading-[1.15] animate-slide-up tracking-tighter mb-6">${combinedQ}</h1>`;
+                            html += `<h1 contenteditable="true" spellcheck="false" class="text-3xl md:text-4xl lg:text-5xl font-bold text-slate-700 leading-[1.15] animate-slide-up tracking-tighter mb-6 px-2 -mx-2">${combinedQ}</h1>`;
                         }
                         // Continue mat likhna, taaki ye line normal process ho jaye!
                     } else {
@@ -428,7 +428,7 @@
                                 ${!isUser ? `<div class="w-10 h-10 rounded-2xl ${badge} flex items-center justify-center text-[10px] font-bold shrink-0">${speaker[0].toUpperCase()}</div>` : ''}
                                 <div class="flex flex-col ${isUser ? 'items-end' : 'items-start'}">
                                     <span class="text-[9px] font-bold tracking-[0.2em] text-slate-400 uppercase mb-1 px-3">${speaker}</span>
-                                    <div class="px-7 py-4 rounded-[26px] ${bubble} text-[17px] font-medium leading-relaxed ${isUser ? 'rounded-tr-none' : 'rounded-tl-none'}">
+                                    <div contenteditable="true" spellcheck="false" class="px-7 py-4 rounded-[26px] ${bubble} text-[17px] font-medium leading-relaxed ${isUser ? 'rounded-tr-none' : 'rounded-tl-none'}">
                                         ${msg}
                                     </div>
                                 </div>
@@ -467,20 +467,20 @@
                             <div class="flex-shrink-0 w-11 h-11 rounded-2xl bg-slate-50 text-slate-400 font-bold flex items-center justify-center group-hover:bg-brand-primary group-hover:text-white transition-all text-xs border border-slate-200">
                                 ${bullet.replace(/[\).]/, '')}
                             </div>
-                            <span class="text-[18px] font-bold text-slate-600 group-hover:text-slate-800 pt-2.5 leading-[1.3] tracking-tight">${content}</span>
+                            <span contenteditable="true" spellcheck="false" class="text-[18px] font-bold text-slate-600 group-hover:text-slate-800 pt-2.5 leading-[1.3] tracking-tight flex-1">${content}</span>
                         </div>
                     `;
                     continue;
                 } 
 
                 // Standard Paragraph
-                html += `<p class="text-slate-600 text-[16px] leading-relaxed mb-1.5 animate-slide-up" style="animation-delay: ${i * 10}ms">${fLine}</p>`;
+                html += `<p contenteditable="true" spellcheck="false" class="text-slate-600 text-[16px] leading-relaxed mb-1.5 animate-slide-up px-2 -mx-2" style="animation-delay: ${i * 10}ms">${fLine}</p>`;
             }
 
             // EDGE CASE: If completely question only
             if (isExtractingQuestion && questionLines.length > 0) {
                 let combinedQ = questionLines.join('<br>');
-                html += `<h1 class="text-3xl md:text-4xl font-bold text-slate-700 leading-snug mb-8 pb-5 border-b border-slate-100 animate-slide-up tracking-tight question-glow">${combinedQ}</h1>`;
+                html += `<h1 contenteditable="true" spellcheck="false" class="text-3xl md:text-4xl font-bold text-slate-700 leading-snug mb-8 pb-5 border-b border-slate-100 animate-slide-up tracking-tight question-glow px-2 -mx-2">${combinedQ}</h1>`;
             }
 
             renderArea.innerHTML = html;
